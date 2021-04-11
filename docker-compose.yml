@@ -1,0 +1,20 @@
+version: '2'
+services:
+    proxy:
+        build: ./proxy
+        networks:
+          - privatebin
+        ports:
+          - 8080:80
+          - 8443:443
+    privatebin:
+        image: privatebin/nginx-fpm-alpine
+        volumes:
+#          - $PWD/conf.php:/srv/cfg/conf.php:ro
+          - $PWD/privatebin-data:/srv/data 
+        restart: always
+        networks:
+          - privatebin
+
+networks:
+    privatebin:
